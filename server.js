@@ -9,6 +9,8 @@ const server_cofig=require('./config/server.config')
 const db_config=require('./config/db.config')
 const user_model=require('./model/user.model')
 
+app.use(express.json()); //middle ware
+
 /* conncet with mongo db */ 
 mongoose.connect(db_config.DB_URL)
 
@@ -46,6 +48,8 @@ const init=async()=>{
     }
 }
 
+/* sitch the route to the server */
+require('./route/auth.route')(app);
 /**
  * Server is running on port
  * 
