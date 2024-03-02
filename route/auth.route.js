@@ -8,4 +8,7 @@ module.exports=(app)=>{
     // app.post('/eccom_db/app/v1/auth/signup',hand over to right controller)
 
     app.post('/ecomm/api/v1/auth/signup',[authMiddleWare.verifyReq_body],authController.signup);
+
+    // localhost:8888/ecom_db/api/signin
+    app.post("/ecom_db/api/signin",authController.singin)
 }

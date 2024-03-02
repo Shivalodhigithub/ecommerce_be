@@ -3,6 +3,7 @@
  */
 const user_model=require('../model/user.model')
 const bcrypt=require('bcryptjs')
+const jwt=require('jsonwebtoken')
 exports.signup=async(req,res)=>{
     /** 
      * Logic to create user
@@ -33,4 +34,48 @@ exports.signup=async(req,res)=>{
 
 
     //3. return response back to the user
+}
+
+/** 
+ * Sign 
+ */
+
+exports.singin=async(req,res)=>{
+    try {
+    const req_body=req.body;
+    //check user id 
+    const user=await user_model.findOne({user_id:req_body.user_id}); 
+    if(user==null){
+        return res.status(401).send({
+            message:"User does not exist"
+        })
+    }
+
+    // check user password  
+    const isValidPassword=bcrypt.compareSync(req_body.password,user.password); 
+    if(!isValidPassword){
+        return res.status(401).send({
+            message:"Password does not match"
+        })
+    }
+
+    // generate token  
+    const token=jwt.sign({id:user.user_id},"my secrest xyz" , {expiresIn:120})
+
+    //send token with 
+    const user_obj={
+        name:user.name,
+        email:user.email,
+        password:user.password,
+        send_token:token
+    }
+    res.status(200).send(user_obj);
+        
+    } catch (error) {
+        console.log("Error while trying to signing:",error)
+        res.status(500).send({
+            message:"Error while signing"
+        })
+        
+    }
 }
