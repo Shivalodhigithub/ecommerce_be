@@ -10,5 +10,5 @@ module.exports=(app)=>{
     app.post('/ecomm/api/v1/auth/signup',[authMiddleWare.verifyReq_body],authController.signup);
 
     // localhost:8888/ecom_db/api/signin
-    app.post("/ecom_db/api/signin",authController.singin)
+    app.post("/ecom_db/api/signin",[authMiddleWare.verify_signin],authController.singin)
 }

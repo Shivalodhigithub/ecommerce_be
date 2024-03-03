@@ -38,9 +38,32 @@ const verifyReq_body=async(req,res,next)=>{
         
     }
 }
+const verify_signin=(req,res,next)=>{
+    try {
+        if(!req.body.user_id){
+            return res.status(401).send({
+                message:"user does not providing"
+            })
+        }
 
+        if(!req.body.password){
+            return res.status(401).send({
+                message:"password does not providing"
+            })
+        }
+        next();
+        
+    } catch (error) {
+        console.log("Error when verify sign in body",error)
+        req.status(500).send({
+            message:"error while verifying sign body"
+        })
+        
+    }
+}
 module.exports={
-    verifyReq_body:verifyReq_body
+    verifyReq_body:verifyReq_body,
+    verify_signin:verify_signin
 };
 
  

@@ -50,6 +50,7 @@ const init=async()=>{
 
 /* sitch the route to the server */
 require('./route/auth.route')(app);
+require('./route/prod.route')(app);
 /**
  * Server is running on port
  * 
