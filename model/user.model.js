@@ -25,9 +25,9 @@ const userSchema=mongoose.Schema({
     type:{
         type:String,
         default:"Customer",
-        enum:["Customer","Admin"]
+        enum:["Admin","Customer"]
     }
-},{timestamps:true,versionkey:false})
+},{timestamps:true,versionKey:false})
 
 //create collection 
 // const user=mongoose.model("user",userSchema);

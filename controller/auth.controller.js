@@ -4,6 +4,7 @@
 const user_model=require('../model/user.model')
 const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
+const key=require('../config/sec.config')
 exports.signup=async(req,res)=>{
     /** 
      * Logic to create user
@@ -17,7 +18,8 @@ exports.signup=async(req,res)=>{
         name:req_body.name,
         email:req_body.email,
         user_id:req_body.user_id,
-        password:bcrypt.hashSync(req_body.password,8)
+        password:bcrypt.hashSync(req_body.password,8),
+        type:req_body.type
     };
     
     try {
@@ -60,7 +62,7 @@ exports.singin=async(req,res)=>{
     }
 
     // generate token  
-    const token=jwt.sign({id:user.user_id},"my secrest xyz" , {expiresIn:120})
+    const token=jwt.sign({id:user.user_id},key.security_key, {expiresIn:120})
 
     //send token with 
     const user_obj={
