@@ -51,7 +51,7 @@ exports.singl_prod=async(req,res)=>{
     // res.send(req.params.id)
     try {
         const id=await prod_model.findOne({_id:req.params.id})
-        console.log(id);
+        // console.log(id);
         if(!id){
             return res.status(400).send({
                 message:"Id does not available"
@@ -76,7 +76,7 @@ exports.update_prod=async(req,res)=>{
     try {
         const id=req.params.id; 
         const updated_prod=await prod_model.findByIdAndUpdate({_id:id},req.body)
-        console.log(updated_prod)
+        // console.log(updated_prod)
         return res.status(200).send(updated_prod)
   
         
@@ -84,6 +84,26 @@ exports.update_prod=async(req,res)=>{
         console.log("Error while updating the product",error)
         res.status(500).send({
             message:"Error while updating the product"
+        })
+        
+    }
+}
+
+/** 
+ * delete the product
+ */
+
+exports.delete_prod=async(req,res)=>{
+    // const _id=req.params.id; 
+    try {
+        const id=req.params.id; 
+        const deleted=await prod_model.deleteOne({_id:id})
+        return res.status(200).send(deleted);
+        
+    } catch (error) {
+        console.log("Error while deleting the product",error); 
+        return res.status(500).send({
+            message:"Error while deleting the product"
         })
         
     }
