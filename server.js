@@ -52,7 +52,7 @@ const init=async()=>{
 require('./route/auth.route')(app);
 require('./route/category.route')(app);
 require('./route/product.route')(app);
-require('./route/add_toCart.route')(app);
+require('./route/cart.route')(app);
 /**
  * Server is running on port
  * 
